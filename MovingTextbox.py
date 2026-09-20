@@ -1,12 +1,38 @@
 import tkinter as tk
 
-root = tk.Tk()
-root.title("Lyrics Project")
-root.geometry("300x200")
+def move_window():
+    root = tk.Tk()
+    root.title("")
+    root.geometry("300x200+0+300")
 
-root.pack_propagate(False) 
+    screen_height = root.winfo_screenheight()
 
-label = tk.Label(root, text="Hei, verden!")
-label.pack(expand=True)  
+    width = 300
+    height = 200
 
-root.mainloop()
+    x = 300
+    y = screen_height - height
+    speed = -2
+
+    root.geometry(f"{width}x{height}+{x}+{y}")
+
+    def move():
+        nonlocal y, speed
+        y += speed
+
+        if y >= screen_height - height:
+            speed = -2
+
+        if y <= 0:
+            speed = 2
+
+        root.geometry(f"{width}x{height}+{x}+{y}")
+
+        root.after(10, move)
+
+    move()
+    root.mainloop()
+
+move_window()
+
+
