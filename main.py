@@ -8,14 +8,25 @@ from LyricReader import LyricReader
 
 app = QApplication(sys.argv)
 
+window = QWidget()
+window.setWindowTitle("")
+window.resize(600, 300)
+
 lyric = LyricReader('lyric.json')
 
-window = QWidget()
-window.setWindowTitle("Lyrics Project")
-window.resize(300, 300)
+index = 0
 
+widget = QLabel(lyric[index], window) 
 
-widget = QLabel(lyric[0], window) 
+# Function to make the text follow the lyrics
+def change_text():
+    
+    pass
+
+timer = QTimer()
+timer.timeout.connect(change_text)
+timer.start(2000)
+
 window.show()
 
 move_window(window)
