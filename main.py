@@ -1,0 +1,2 @@
+from LyricReader import LyricReader
+
