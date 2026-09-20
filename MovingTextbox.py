@@ -1,38 +1,26 @@
-import tkinter as tk
+import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel
+from PyQt6.QtCore import QTimer
 
-def move_window():
-    root = tk.Tk()
-    root.title("")
-    root.geometry("300x200+0+300")
-
-    screen_height = root.winfo_screenheight()
-
-    width = 300
-    height = 200
+def move_window(window):
+    screen = QApplication.primaryScreen().availableGeometry()
 
     x = 300
-    y = screen_height - height
+    y = screen.height() - window.height()
     speed = -2
-
-    root.geometry(f"{width}x{height}+{x}+{y}")
 
     def move():
         nonlocal y, speed
+
         y += speed
 
-        if y >= screen_height - height:
-            speed = -2
+        if y<= 0:
+            window.show()
 
-        if y <= 0:
-            speed = 2
+        window.move(x,y)
 
-        root.geometry(f"{width}x{height}+{x}+{y}")
-
-        root.after(10, move)
-
-    move()
-    root.mainloop()
-
-move_window()
+    timer = QTimer(window)
+    timer.timeout.connect(move)
+    timer.start(10)
 
 
